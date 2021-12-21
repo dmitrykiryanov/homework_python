@@ -18,24 +18,24 @@ def get_dict(file_name):
             file.readline().strip()
     return cook_book
 cook_book_new = get_dict('recipes.txt')
-
+# print(cook_book_new)
 def get_shop_list_by_dishes(dishes, person_count):
     shop_list_by_dishes = {}
-    for dish, recipe in cook_book_new.items():
-        if dish in dishes:
-            for ingredient in recipe:
-                key = ingredient.pop('ingredient_name')
-                if key not in shop_list_by_dishes:
-                    shop_list_by_dishes.setdefault(key)
-                    ingredient['quantity'] = person_count*ingredient['quantity']
-                    shop_list_by_dishes[key] = ingredient
-                else:
-                    ingredient['quantity'] = ingredient['quantity'] + person_count * ingredient['quantity']
-                    shop_list_by_dishes[key] = ingredient
-        else:
-            continue
-    return shop_list_by_dishes
-print(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))
+    for course in dishes:
+        for dish, recipe in cook_book_new.items():
+            if course == dish:
+                for ingredient in recipe:
+                    key = ingredient['ingredient_name']
+                    if key not in shop_list_by_dishes:
+                        shop_list_by_dishes.setdefault(key)
+                        shop_list_by_dishes[key] = {'measure': ingredient['measure'], 'quantity': person_count*ingredient['quantity'] }
 
+                    else:
+                        shop_list_by_dishes[key]['quantity'] = shop_list_by_dishes[key]['quantity'] + person_count * ingredient['quantity']
+            else:
+                continue
+    return shop_list_by_dishes
+res = get_shop_list_by_dishes(['Омлет','Омлет'], 2)
+print(res)
 
 
