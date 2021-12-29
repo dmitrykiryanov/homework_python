@@ -27,7 +27,7 @@ class YandexDisk:
         response.raise_for_status()
         if response.status_code == 201:
             print("Success")
-TOKEN = "AQAAAAAohLOyAADLW_Qv7L0_skuQqnTFDYfv4-I"
+TOKEN = ""
 if __name__ == '__main__':
     ya = YandexDisk(token=TOKEN)
     ya.upload_file_to_disk("hw_Python/filename.txt","1.txt")
